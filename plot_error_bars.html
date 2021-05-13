@@ -1,0 +1,161 @@
+<html>
+<head>
+<title>Statistical Charts</title>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Plotly Errors -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+</head>
+
+<p>    
+    <a href="https://bit.ly/1Or9igj">plotly.js documentation</a>
+</p>
+<div id="jorgesys_test0" style="width:90%;height:250px;">Symmetric Error Bars</div>
+  <script>
+var data = [
+  {
+    x: [0, 1, 2],
+    y: [6, 10, 2],
+    error_y: {
+      type: 'data',
+      array: [1, 2, 3],
+      visible: true
+    },
+    type: 'scatter'
+  }
+];
+Plotly.newPlot('jorgesys_test0', data);
+</script>
+<hr>
+<div id="jorgesys_test1" style="width:90%;height:250px;">Bar Chart with Error Bars</div>
+  <script>
+var trace1 = {
+  x: ['Trial 1', 'Trial 2', 'Trial 3'],
+  y: [3, 6, 4],
+  name: 'Control',
+  error_y: {
+    type: 'data',
+    array: [1, 0.5, 1.5],
+    visible: true
+  },
+  type: 'bar'
+};
+var trace2 = {
+  x: ['Trial 1', 'Trial 2', 'Trial 3'],
+  y: [4, 7, 3],
+  name: 'Experimental',
+  error_y: {
+    type: 'data',
+    array: [0.5, 1, 2],
+    visible: true
+  },
+  type: 'bar'
+};
+var data = [trace1, trace2];
+var layout = {barmode: 'group'};
+Plotly.newPlot('jorgesys_test1', data, layout);
+</script>
+<hr>
+<div id="jorgesys_test2" style="width:90%;height:250px;">Horizontal Error Bars</div>
+  <script>
+var data = [
+  {
+    x: [1, 2, 3, 4],
+    y: [2, 1, 3, 4],
+    error_x: {
+      type: 'percent',
+      value: 10
+    },
+    type: 'scatter'
+  }
+];
+Plotly.newPlot('jorgesys_test2', data);
+</script>
+<hr>
+<div id="jorgesys_test3" style="width:90%;height:250px;">Asymmetric Error Bars</div>
+  <script>
+var data = [
+  {
+    x: [1, 2, 3, 4],
+    y: [2, 1, 3, 4],
+    error_y: {
+      type: 'data',
+      symmetric: false,
+      array: [0.1, 0.2, 0.1, 0.1],
+      arrayminus: [0.2, 0.4, 1, 0.2]
+    },
+    type: 'scatter'
+  }
+];
+Plotly.newPlot('jorgesys_test3', data);
+</script>
+<hr>
+<div id="jorgesys_test4" style="width:90%;height:250px;">Colored and Styled Error Bars</div>
+  <script>
+
+function linspace(a,b,n) {
+  return d3.range(n).map(function(i){
+     return a+i*(b-a)/(n-1);
+  });
+}
+x_theo = linspace(-4, 4, 100)
+sincx = Math.sin(x_theo) / x_theo
+var x = [-3.8, -3.03, -1.91, -1.46, -0.89, -0.24, -0.0, 0.41, 0.89, 1.01, 1.91, 2.28, 2.79, 3.56]
+var y = [-0.02, 0.04, -0.01, -0.27, 0.36, 0.75, 1.03, 0.65, 0.28, 0.02, -0.11, 0.16, 0.04, -0.15]
+
+var trace1 = {
+  x: x_theo,
+  y: sincx,
+  name: 'sinc(x)',
+  type: 'scatter'
+};
+var trace2 = {
+  x: x,
+  y: y,
+  mode: 'markers',
+  name: 'measured',
+  error_y: {
+    type: 'constant',
+    value: 0.1,
+    color: '#85144B',
+    thickness: 1.5,
+    width: 3,
+    opacity: 1
+  },
+  error_x: {
+    type: 'constant',
+    value: 0.2,
+    color: '#85144B',
+    thickness: 1.5,
+    width: 3,
+    opacity: 1
+  },
+  marker: {
+    color: '#85144B',
+    size: 8
+  },
+  type: 'scatter'
+};
+var data = [trace1, trace2];
+Plotly.newPlot('jorgesys_test4', data, {}, {showSendToCloud: true});
+
+  </script>
+<hr>
+
+<div id="jorgesys_test5" style="width:90%;height:250px;">Error Bars as a Percentage of the y-Value</div>
+  <script>
+var data = [
+  {
+    x: [0, 1, 2],
+    y: [6, 10, 2],
+    error_y: {
+      type: 'percent',
+      value: 50,
+      visible: true
+    },
+    type: 'scatter'
+  }
+];
+Plotly.newPlot('jorgesys_test5', data);
+</script>
+</html>

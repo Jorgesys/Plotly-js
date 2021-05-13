@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Responsive / Fluid Layouts in JavaScript</title>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Plotly Errors -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+</head>
+
+<p>    
+    <a href="https://bit.ly/1Or9igj">plotly.js documentation</a>
+</p>
+
+<!-- Plots go in blank <div> elements. 
+    You can size them in the plot layout,
+    or give the div a size as shown here.
+-->
+<div id="jorgesys_tester0" style="width:90%;height:250px;"></div>
+  <script>
+d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv', function(err, rows){
+function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
+
+var z_data=[ ]
+for(i=0;i<24;i++)
+{
+  z_data.push(unpack(rows,i));
+}
+
+var data = [{
+           z: z_data,
+           type: 'surface'
+        }];
+
+var layout = {
+  title: 'Mountain Jorgesys Elevation',
+  autosize: false,
+  width: 500,
+  height: 500,
+  margin: {
+    l: 65,
+    r: 50,
+    b: 65,
+    t: 90,
+  }
+};
+Plotly.newPlot('jorgesys_tester0', data, layout);
+});
+</script>
+<div id="jorgesys_tester1" style="width:90%;height:250px;">Surface Plot With Contours</div>
+  <script>
+d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv', function(err, rows){
+function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
+var z_data=[ ]
+for(i=0;i<24;i++)
+{
+  z_data.push(unpack(rows,i));
+}
+
+var data = [{
+  z: z_data,
+  type: 'surface',
+  contours: {
+    z: {
+      show:true,
+      usecolormap: true,
+      highlightcolor:"#42f462",
+      project:{z: true}
+    }
+  }
+}];
+
+var layout = {
+  title: 'Mountain Jorgesys Elevation With Projected Contours',
+  scene: {camera: {eye: {x: 1.87, y: 0.88, z: -0.64}}},
+  autosize: false,
+  width: 500,
+  height: 500,
+  margin: {
+    l: 65,
+    r: 50,
+    b: 65,
+    t: 90,
+  }
+};
+
+Plotly.newPlot('jorgesys_tester1', data, layout);
+});
+</script>
+<div id="jorgesys_tester2" style="width:90%;height:250px;">Multiple 3D Surface Plots</div>
+  <script>
+z1 = [
+    [8.83,8.89,8.81,8.87,8.9,8.87],
+    [8.89,8.94,8.85,8.94,8.96,8.92],
+    [8.84,8.9,8.82,8.92,8.93,8.91],
+    [8.79,8.85,8.79,8.9,8.94,8.92],
+    [8.79,8.88,8.81,8.9,8.95,8.92],
+    [8.8,8.82,8.78,8.91,8.94,8.92],
+    [8.75,8.78,8.77,8.91,8.95,8.92],
+    [8.8,8.8,8.77,8.91,8.95,8.94],
+    [8.74,8.81,8.76,8.93,8.98,8.99],
+    [8.89,8.99,8.92,9.1,9.13,9.11],
+    [8.97,8.97,8.91,9.09,9.11,9.11],
+    [9.04,9.08,9.05,9.25,9.28,9.27],
+    [9,9.01,9,9.2,9.23,9.2],
+    [8.99,8.99,8.98,9.18,9.2,9.19],
+    [8.93,8.97,8.97,9.18,9.2,9.18]
+];
+
+z2 = [];
+for (var i=0;i<z1.length;i++ ) { 
+  z2_row = [];
+    for(var j=0;j<z1[i].length;j++) { 
+      z2_row.push(z1[i][j]+1);
+    }
+    z2.push(z2_row);
+}
+
+z3 = []
+for (var i=0;i<z1.length;i++ ) { 
+  z3_row = [];
+    for(var j=0;j<z1[i].length;j++) { 
+      z3_row.push(z1[i][j]-1);
+    }
+    z3.push(z3_row);
+}
+var data_z1 = {z: z1, type: 'surface'};
+var data_z2 = {z: z2, showscale: false, opacity:0.9, type: 'surface'};
+var data_z3 = {z: z3, showscale: false, opacity:0.9, type: 'surface'};
+
+Plotly.newPlot('jorgesys_tester2', [data_z1, data_z2, data_z3]);
+
+</script>
+
+</html>
